@@ -1,0 +1,3071 @@
+
+import 'package:flutter/material.dart';
+
+
+class Pessoa{
+  int codigoPessoa;
+  String nome;
+  String dataNascimento;
+  int cep;
+  int numeroCasa;
+  String complemento;
+  int telContato;
+}
+
+class Fisioterapeuta extends Pessoa{
+  String crefito;
+  String email;
+  String cpf;
+}
+
+class Paciente extends Pessoa{
+  String diagnostico;
+  String informacaoExtra;
+  String responsavel;
+}
+
+class Responsavel extends Pessoa
+{
+  String email;
+  int celular;
+  String tutorado;
+}
+
+class Atendimento
+{
+  int codigoAtendimento;
+  String dataAtendimento;
+  String horaInicio;
+  String horaFim;
+  String procedimentosRealizados;
+  int codigoPaciente;
+  int codigoFissioterapeuta;
+}
+
+class Procedimento
+{
+  int codigoProcedimento;
+  String descricaoProcedimento;
+  int numSeries;
+  int numRepeticoes;
+}
+
+class Agendamento
+{
+  String nomePaciente;
+  String nomeResponsavel;
+  String dataConsulta;
+  String horaConsulta;
+  String localConsulta;
+  String fisioResponsavel;
+
+}
+
+class Item {
+  var icone;
+  var foto;
+  int codigoPessoa;
+  String nome;
+  String dataNascimento;
+  int cep;
+  int numeroCasa;
+  String complemento;
+  int telContato;
+  String diagnostico;
+  String informacaoExtra;
+  String responsavel;
+
+  Item(this.icone, this.nome, this.codigoPessoa, this.foto, this.dataNascimento,this.cep, this.numeroCasa, this.complemento, this.telContato, this.diagnostico, this.informacaoExtra, this.responsavel);
+}
+
+// Definir as informaÁıes que ser„o apresentadas em cada item da Lista
+class ItemResponsaveis {
+  var icone;
+  var foto;
+  int codigoPessoa;
+  String nome;
+  String dataNascimento;
+  int cep;
+  int numeroCasa;
+  String complemento;
+  int telContato;
+  String tutorado;
+  String email;
+
+  ItemResponsaveis(this.icone, this.nome, this.codigoPessoa, this.foto, this.dataNascimento,this.cep, this.numeroCasa, this.complemento, this.telContato, this.tutorado, this.email);
+}
+
+// Definir as informaÁıes que ser„o apresentadas em cada item da Lista
+class ItemFisioterapeutas {
+  var icone;
+  var foto;
+  int codigoPessoa;
+  String nome;
+  String dataNascimento;
+  int cep;
+  int numeroCasa;
+  String complemento;
+  int telContato;
+  String crefito;
+  String email;
+
+  ItemFisioterapeutas(this.icone, this.nome, this.codigoPessoa, this.foto, this.dataNascimento,this.cep, this.numeroCasa, this.complemento, this.telContato, this.crefito, this.email);
+}
+
+// Definir as informaÁıes que ser„o apresentadas em cada item da Lista
+class ItemAtendimento {
+  var icone;
+  var foto;
+  int codigoAtendimento;
+  String dataAtendimento;
+  String horaInicio;
+  String horaFim;
+  String procedimentosRealizados;
+  int codigoPaciente;
+  int codigoFissioterapeuta;
+
+  ItemAtendimento(this.icone, this.foto, this.codigoAtendimento, this.dataAtendimento, this.horaInicio, this.horaFim, this.procedimentosRealizados, this.codigoPaciente, this.codigoFissioterapeuta,);
+}
+
+// Definir as informaÁıes que ser„o apresentadas em cada item da Lista
+class ItemProcedimento {
+  var icone;
+  var foto;
+  int codigoProcedimento;
+  String descricaoProcedimento;
+  int numSeries;
+  int numRepeticoes;
+
+  ItemProcedimento(this.icone, this.foto, this.codigoProcedimento, this.descricaoProcedimento, this.numSeries, this.numRepeticoes,);
+}
+
+Paciente o_paciente = new Paciente();
+Fisioterapeuta o_fisioterapeuta = new Fisioterapeuta();
+Responsavel o_responsavel = new Responsavel();
+Atendimento o_atendimento = new Atendimento();
+Procedimento o_procedimento = new Procedimento();
+Agendamento o_agendamento = new Agendamento();
+
+void main() {
+  runApp(
+    MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Navegação',
+
+        //home: MyApp(),
+
+        // ROTAS de Navegação
+        initialRoute: '/pagina17',
+        routes:{
+          '/pagina17': (context) => Inicio(),
+          '/pagina1': (context) => Login(),
+          '/pagina2': (context) => ExplicacaoPagina(),
+          '/pagina3': (context) => MenuPrincipal(),
+          '/pagina4': (context) => MenuCadastroPagina(),
+          '/pagina5': (context) => CadastroPacientes(),
+          '/pagina6': (context) => PacientesCadastradosPagina(),
+          '/pagina7': (context) => CadastroResponsavel(),
+          '/pagina8': (context) => ResponsaveisCadastradosPagina(),
+          '/pagina9': (context) => CadastroFisioterapeuta(),
+          '/pagina10': (context) => FisioterapeutasCadastradosPagina(),
+          '/pagina11': (context) => CadastroAtendimento(),
+          '/pagina12': (context) => AtendimentosCadastradosPagina(),
+          '/pagina13': (context) => CadastroProcedimento(),
+          '/pagina14': (context) => ProcedimentosCadastradosPagina(),
+          '/pagina15': (context) => AgendamentoPagina(),
+          '/pagina16': (context) => MenuListasPagina()
+
+        }
+
+
+    ),
+  );
+}
+
+//
+// PRIMEIRA PÁGINA - LOGIN
+//
+class MyApp extends StatefulWidget {
+  _MyAppState createState() => _MyAppState();
+
+}
+class _MyAppState extends State<MyApp>{
+  Widget build(BuildContext context){
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "iFisio",
+      home: Login(),
+    );
+  }
+}
+
+
+class Login extends StatefulWidget{
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State <Login> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  TextEditingController txtLogin = TextEditingController();
+  TextEditingController txtSenha = TextEditingController();
+  //String _resultado = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("iFisio"),
+          actions: <Widget>[
+
+            new IconButton(icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => Inicio())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina17');
+
+
+
+              },),
+
+          ] ,
+
+          backgroundColor: Colors.blue,
+        ),
+
+        body: Container(
+
+          //padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal:10),
+          child: Form(
+
+            key: _formKey,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+
+                  Icon(Icons.people, size:80, color: Colors.blue),
+                  //Campos do formulario
+                  campoTexto("Login: ", txtLogin),
+                  campoTexto("Senha: ", txtSenha),
+                  //botaoEntrar(context),
+
+
+                  RaisedButton(
+                    child: Text("Entrar", style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                    ),
+                    color: Colors.grey[500],
+                    onPressed: () {
+
+                      /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => ExplicacaoPagina())
+                );
+                */
+                      Navigator.pushNamed(context, '/pagina2');
+
+                    },
+                  ),
+                ]
+            ),
+          ),
+        ),
+        backgroundColor: Colors.white
+    );
+  }
+}
+
+campoTexto(rotulo, controle){
+  return Container(
+    padding: const EdgeInsets.symmetric(vertical: 5),
+    child: TextFormField(
+      keyboardType: TextInputType.text,
+      style: TextStyle(color: Colors.black54, fontSize: 20),
+      decoration: InputDecoration(
+        labelText: rotulo,
+        labelStyle: TextStyle(
+          color: Colors.blue[700],
+          fontSize: 15,
+        ),
+      ),
+      controller: controle,
+      validator: (value) {
+        return (value.isEmpty) ? "Informe o valor" : null;
+      },
+    ),
+  );
+}
+
+//
+// SEGUNDA PÁGINA - EXPLICAÇAO DO APP
+//
+class ExplicacaoPagina extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("iFisio"),
+        actions: <Widget>[
+
+          new IconButton(icon: new Icon(Icons.home),
+            onPressed: () {
+
+              /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+              Navigator.pushNamed(context, '/pagina3');
+
+            },),
+
+
+          new IconButton(icon: new Icon(Icons.arrow_back),
+            onPressed: () {
+
+              /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => Inicio())
+                );
+                */
+              Navigator.pushNamed(context, '/pagina17');
+
+
+
+            },),
+
+        ] ,
+
+
+
+      ),
+      body:
+      SingleChildScrollView(
+        child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+          children: <Widget>[
+            Padding(padding: EdgeInsets.only(bottom: 40),),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:[
+                  // Como colocar nossas fotos lado a lado?
+                  Image.network("https://i1.rgstatic.net/ii/profile.image/457088460693512-1485989789584_Q512/Amanda_Jaria.jpg",fit: BoxFit.fill,width: 100.0, alignment: Alignment.bottomRight),
+                  Column(children: <Widget>[Padding(padding: EdgeInsets.all(10),),]),
+                  Image.network("https://loop.frontiersin.org/images/profile/380099/203",fit: BoxFit.fill,width: 100.0,alignment: Alignment.bottomRight),]
+
+            ),
+
+
+            Container(
+              //margin: EdgeInsets.only(top: 200),
+              margin: const EdgeInsets.only(top: 30, left: 50.0, right: 50.0),
+              child: Center(
+                child: Text('iFisio: Aplicativo de gerenciamento de uma clínica de Fisioterapia.', style: TextStyle(
+                  fontSize: 15, color: Colors.black, fontFamily: 'Open Sans', fontWeight: FontWeight.bold,
+                )),
+              ),
+            ),
+            Container(
+              //margin: EdgeInsets.only(top: 200),
+              margin: const EdgeInsets.only(top: 20, left: 50.0, right: 50.0),
+              child: Center(
+                child: Text('O objetivo geral do projeto é desenvolver um aplicativo mobile para facilitar o gerenciamento da clínica de fisioterapia Luana Fróes.'),
+              ),
+            ),
+            Container(
+              //margin: EdgeInsets.only(top: 200),
+              margin: const EdgeInsets.only(top: 20, left: 50.0, right: 50.0),
+              child: Center(
+                child: Text('Desenvolvedoras:'+ "\n" +'Amanda Macedo Jaria' + "\n" + 'Lummy Maria Oliveira Monteiro', style: TextStyle(fontSize: 15, color: Colors.black, fontFamily: 'Open Sans', fontWeight: FontWeight.bold,)),
+              ),
+            ),
+
+            SizedBox(height: 20,),
+
+            Padding(padding: const EdgeInsets.symmetric(vertical: 5, horizontal:10),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal:20),
+              child: Text(" Menu ", style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+
+              ),
+              color: Colors.blue[500],
+
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+              },
+            ),
+
+            Padding(padding: const EdgeInsets.symmetric(vertical: 5, horizontal:10),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal:20),
+              child: Text("Voltar", style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+
+              ),
+              color: Colors.blue[500],
+
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => Login())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina1');
+
+              },
+            ),
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//
+// TERCEIRA PÁGINA - MENU PRINCIPAL
+//
+class MenuPrincipal extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Menu"),
+          actions: <Widget>[
+
+            new IconButton(icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => ExplicacaoPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina2');
+
+
+
+              },),
+
+          ] ,
+          backgroundColor: Colors.blue[400]),
+      body: Center(
+        child: Column(
+
+          //mainAxisAlignment: MainAxisAlignment.center,
+
+          children: <Widget>[
+
+            Padding(padding: EdgeInsets.only(bottom: 40),),
+
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:50),
+              child: Text("Cadastros", style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuCadastroPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina4');
+
+              },
+            ),
+            //Padding(padding: EdgeInsets.only(bottom: 20),),
+
+            Padding(padding: const EdgeInsets.symmetric(vertical: 15, horizontal:10),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:30),
+              child: Text("Agendamentos", style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+
+              ),
+              color: Colors.blue[500],
+
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => AgendamentoPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina15');
+
+
+
+              },
+            ),
+
+            Padding(padding: const EdgeInsets.symmetric(vertical: 15, horizontal:10),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:30),
+              child: Text("Arquivos iFisio", style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+
+              ),
+              color: Colors.blue[500],
+
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuListasPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina16');
+
+
+
+              },
+            ),
+
+            Padding(padding: EdgeInsets.only(top: 30),),
+
+            Image.network("https://interfisio.com.br/wp-content/uploads/2017/10/Fotolia_158986386_Subscription_Monthly_M-1170x568.jpg",fit: BoxFit.fill,width: 500.0, alignment: Alignment.bottomRight),
+
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//
+// QUARTA PÁGINA - MENU DE CADASTROS
+//
+class MenuCadastroPagina extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Menu de Cadastros"),
+          actions: <Widget>[
+
+            new IconButton(icon: new Icon(Icons.home),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+
+          ] ,
+          backgroundColor: Colors.blue[400]),
+      body: SingleChildScrollView( child: Center(
+        child: Column(
+
+          //mainAxisAlignment: MainAxisAlignment.center,
+
+          children: <Widget>[
+
+            Padding(padding: EdgeInsets.only(top: 30),),
+
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:85),
+              child: Text("Cadastro de Pacientes", style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => CadastroPacientes())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina5');
+
+              },
+            ),
+
+            Padding(padding: EdgeInsets.only(top: 20),),
+
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:70),
+              child: Text("Cadastro de Responsáveis", style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => CadastroResponsavel())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina7');
+
+              },
+            ),
+            Padding(padding: EdgeInsets.only(top: 20),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:65),
+              child: Text("Cadastro de Fisioterapeutas", style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => CadastroFisioterapeuta())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina9');
+
+              },
+            ),
+
+            Padding(padding: EdgeInsets.only(top: 20),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:70),
+              child: Text("Cadastro de Atendimentos", style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => CadastroAtendimento())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina11');
+
+              },
+            ),
+
+            Padding(padding: EdgeInsets.only(top: 20),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:65),
+              child: Text("Cadastro de Procedimentos", style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => CadastroProcedimentos())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina13');
+
+              },
+            ),
+
+            Padding(padding: EdgeInsets.only(top: 30),),
+
+            Image.network("https://www.erasystems.com.br/wp-content/uploads/2017/06/icone_cadastro-300x162.png",fit: BoxFit.fill,width: 250.0, alignment: Alignment.bottomRight),
+
+          ],
+        ),
+      ),
+      ),
+    );
+  }
+}
+
+
+//
+// QUINTA PÁGINA - CADASTRO DE PACIENTES
+//
+
+class CadastroPacientes extends StatefulWidget {
+  @override
+  _CadastroPacientesState createState() => _CadastroPacientesState();
+}
+
+
+class _CadastroPacientesState extends State<CadastroPacientes> {
+
+
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  TextEditingController txtCodigo = TextEditingController();
+  TextEditingController txtNome = TextEditingController();
+  TextEditingController txtDataNascimento = TextEditingController();
+  TextEditingController txtCEP = TextEditingController();
+  TextEditingController txtNumCasa = TextEditingController();
+  TextEditingController txtComplemento = TextEditingController();
+  TextEditingController txtTelContato = TextEditingController();
+  TextEditingController txtDiagnostico = TextEditingController();
+  TextEditingController txtInfoExtra = TextEditingController();
+  TextEditingController txtResponsavel = TextEditingController();
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Cadastro de Paciente"),
+          actions: <Widget>[
+            new IconButton(icon: new Icon(Icons.backspace), onPressed: _reset),
+            new IconButton(icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuCadastroPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina4');
+
+              },),
+            new IconButton(icon: new Icon(Icons.home),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+              },),
+
+          ] ,
+          backgroundColor: Colors.blue[400]),
+
+
+
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: _formkey,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU", width:80, height:80),
+                campoTexto("Código do paciente:",txtCodigo),
+                campoTexto("Nome do paciente:",txtNome),
+                campoTexto("Data de Nascimento:",txtDataNascimento),
+                campoTexto("CEP:",txtCEP),
+                campoTexto("Número da residência:",txtNumCasa),
+                campoTexto("Complemento:",txtComplemento),
+                campoTexto("Telefone de Contato:",txtTelContato),
+                campoTexto("Diagnóstico do paciente:",txtDiagnostico),
+                campoTexto("Informações Adicionais:",txtInfoExtra),
+                campoTexto("Responsável:",txtResponsavel),
+
+                botaoCadastrar(context),
+                botaoLimpar(context),
+
+                Padding(padding: const EdgeInsets.only(top: 20),),
+                RaisedButton(
+                  child: Text("Visualizar Pacientes Cadastrados", style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                  ),
+                  color: Colors.grey[500],
+                  onPressed: () {
+                    /*
+                     Navigator.push(context,
+                     MaterialPageRoute(
+                     builder: (context) => PacientesCadastradosPagina())
+                     );
+                     */
+                    Navigator.pushNamed(context, '/pagina6');
+
+                  },
+                ),
+
+              ]),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+  }
+
+  campoTexto(rotulo, controle) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        keyboardType: TextInputType.text,
+        style: TextStyle(color: Colors.black54, fontSize: 20),
+        decoration: InputDecoration(
+          labelText: rotulo,
+          labelStyle: TextStyle(
+            color: Colors.blue[700],
+            fontSize: 15,
+          ),
+        ),
+        controller: controle,
+        validator: (value) {
+          return (value.isEmpty) ? "Informe o valor" : null;
+        },
+      ),
+    );
+  }
+
+  botaoCadastrar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Finalizar Cadastro",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            if (_formkey.currentState.validate()) {
+              _cadastrar();
+            }
+          },
+        ));
+  }
+
+  botaoLimpar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Limpar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            {
+              _reset();
+            }
+          },
+        ));
+  }
+
+
+  void _cadastrar() {
+    setState(() {
+
+
+
+      o_paciente.codigoPessoa=int.parse(txtCodigo.text);
+      o_paciente.nome=(txtNome.text);
+      o_paciente.dataNascimento=(txtDataNascimento.text);
+      o_paciente.cep=int.parse(txtCEP.text);
+      o_paciente.numeroCasa=int.parse(txtNumCasa.text);
+      o_paciente.complemento=(txtComplemento.text);
+      o_paciente.telContato=int.parse(txtTelContato.text);
+      o_paciente.diagnostico=(txtDiagnostico.text);
+      o_paciente.informacaoExtra=(txtInfoExtra.text);
+      o_paciente.responsavel=(txtResponsavel.text);
+      _cadastroDialog();
+
+    });
+  }
+
+  void _cadastroDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // retorna um objeto do tipo Dialog
+        return AlertDialog(
+          //title: new Text("Alert Dialog titulo"),
+          content: new Text("Cadastro efetuado com sucesso!"),
+          actions: <Widget>[
+            // define os botıes na base do dialogo
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  void _voltar()
+  {
+    Navigator.pop(context);
+  }
+
+  void _home()
+  {
+    Navigator.pop(context);
+  }
+
+  void _reset() {
+    setState(() {
+      txtCodigo.text="";
+      txtNome.text="";
+      txtDataNascimento.text="";
+      txtCEP.text="";
+      txtNumCasa.text="";
+      txtComplemento.text="";
+      txtTelContato.text="";
+      txtDiagnostico.text="";
+      txtInfoExtra.text="";
+      txtResponsavel.text="";
+    });
+  }
+}
+//
+// SEXTA PÁGINA - listview de paciente
+//
+
+class PacientesCadastradosPagina extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+            title: Text("Pacientes Cadastrados"),
+            actions: <Widget>[
+
+              new IconButton(icon: new Icon(Icons.arrow_back),
+                onPressed: () {
+
+                  /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                  Navigator.pushNamed(context, '/pagina3');
+
+
+
+                },),
+              new IconButton(icon: new Icon(Icons.home),onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+
+            ]
+        ),
+        body: PacientesCadastrados(),
+      ),
+    );
+  }
+}
+class PacientesCadastrados extends StatefulWidget {
+  @override
+  _PacientesCadastradosPaginaState createState() => _PacientesCadastradosPaginaState();
+}
+
+class _PacientesCadastradosPaginaState extends State<PacientesCadastrados> {
+
+  //Lista Din‚mica de Itens contendo: Ìcone, tÌtulo e subtÌtulo
+  List<Item> lista = [];
+
+  //AparÍncia dos itens do ListView
+  Widget _itemLista(context, index){
+
+    return Container(
+      width: MediaQuery.of(context).size.width*0.40,
+      //height: MediaQuery.of(context).size.height*0.40,
+      padding: EdgeInsets.all(20),
+      child: Card(
+        color: Colors.white70,
+        child: Column(
+          children: <Widget>[
+            //SizedBox(height: 15,),
+            ExpansionTile(
+              leading: Icon(lista[index].icone, size: 50,),
+              title: Text(lista[index].nome, style: TextStyle(fontSize: 18,),),
+              subtitle: Text("Código " +lista[index].codigoPessoa.toString(), style: TextStyle(fontSize: 16,),),
+              trailing: Icon(Icons.add),
+              children: <Widget>[
+                Image.network("https://picsum.photos/seed/${index+1}/100/100"),
+                Text("Data de nascimento: " + lista[index].dataNascimento.toString(),style: TextStyle(fontSize: 16),),
+                Text("CEP: " + lista[index].cep.toString(),style: TextStyle(fontSize: 16),),
+                Text("Num: " + lista[index].numeroCasa.toString(),style: TextStyle(fontSize: 16),),
+                Text("Complemento: " + lista[index].complemento.toString(),style: TextStyle(fontSize: 16),),
+                Text("Tel Contato: " + lista[index].telContato.toString(),style: TextStyle(fontSize: 16),),
+                Text("Responsável: " + lista[index].responsavel.toString(),style: TextStyle(fontSize: 16),),
+                Text("Diagnóstico: " + lista[index].diagnostico.toString(),style: TextStyle(fontSize: 16),),
+                Text("Info Extra: " + lista[index].informacaoExtra.toString(),style: TextStyle(fontSize: 16),),
+              ],
+            ),
+
+          ],),
+      ),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    //gerar dados para Lista Din‚mica
+    lista.add(Item(
+        Icons.person,
+        "Amanda Jaria",
+        10,
+        Image.network(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU",
+            width: 80, height: 80),
+        "24/06/92",
+        14020380,
+        1821,
+        "ap 44",
+        981280829,
+        "Perna quebrada",
+        "Alérgica a iodo",
+        "Elisabete Jaria"));
+    lista.add(Item(
+        Icons.person,
+        "Lummy Monteiro",
+        11,
+        Image.network(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU",
+            width: 80, height: 80),
+        "24/06/92",
+        14020380,
+        1821,
+        "ap 44",
+        981280829,
+        "Perna quebrada",
+        "Alérgica a iodo",
+        "Elisabete Jaria"));
+
+    return Container(
+      color: Colors.grey[100],
+      height: MediaQuery.of(context).size.height*1.0,
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: lista.length,      // total de itens da lista
+        itemBuilder: _itemLista,      // especificar a aparÍncia dos itens da lista
+      ),
+    );
+  }
+}
+
+void _home()
+{
+
+}
+
+
+//
+// SETIMA PÁGINA - CADASTRO DE RESPONSAVEIS
+//
+class CadastroResponsavel extends StatefulWidget {
+  @override
+  _CadastroResponsavelState createState() => _CadastroResponsavelState();
+}
+
+
+class _CadastroResponsavelState extends State<CadastroResponsavel> {
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  TextEditingController txtCodigo = TextEditingController();
+  TextEditingController txtNome = TextEditingController();
+  TextEditingController txtDataNascimento = TextEditingController();
+  TextEditingController txtCEP = TextEditingController();
+  TextEditingController txtNumCasa = TextEditingController();
+  TextEditingController txtComplemento = TextEditingController();
+  TextEditingController txtTelContato = TextEditingController();
+  //fim heranca
+  TextEditingController txtTutorado = TextEditingController();
+  TextEditingController txtEmail = TextEditingController();
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Cadastro de Responsável"),
+          actions: <Widget>[
+            new IconButton(icon: new Icon(Icons.backspace), onPressed: _reset),
+            new IconButton(icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuCadastroPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina4');
+
+              },),
+            new IconButton(icon: new Icon(Icons.home),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+
+          ] ,
+          backgroundColor: Colors.blue[400]),
+
+
+
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: _formkey,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU", width:80, height:80),
+                campoTexto("Código do Responsável:",txtCodigo),
+                campoTexto("Nome do Responsável:",txtNome),
+                campoTexto("Data de Nascimento:",txtDataNascimento),
+                campoTexto("CEP:",txtCEP),
+                campoTexto("Número da residência:",txtNumCasa),
+                campoTexto("Complemento:",txtComplemento),
+                campoTexto("Telefone de Contato:",txtTelContato),
+                //fim da heranca
+                campoTexto("Tutorado:",txtTutorado),
+                campoTexto("Email:",txtEmail),
+
+                botaoCadastrar(context),
+                botaoLimpar(context),
+
+                Padding(padding: const EdgeInsets.only(top: 20),),
+                RaisedButton(
+                  child: Text("Visualizar Responsáveis Cadastrados", style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                  ),
+                  color: Colors.grey[500],
+                  onPressed: () {
+                    /*
+                     Navigator.push(context,
+                     MaterialPageRoute(
+                     builder: (context) => ResponsaveisCadastradosPagina())
+                     );
+                     */
+                    Navigator.pushNamed(context, '/pagina8');
+
+                  },
+                ),
+
+              ]),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+  }
+
+  campoTexto(rotulo, controle) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        keyboardType: TextInputType.text,
+        style: TextStyle(color: Colors.black54, fontSize: 20),
+        decoration: InputDecoration(
+          labelText: rotulo,
+          labelStyle: TextStyle(
+            color: Colors.blue[700],
+            fontSize: 15,
+          ),
+        ),
+        controller: controle,
+        validator: (value) {
+          return (value.isEmpty) ? "Informe o valor" : null;
+        },
+      ),
+    );
+  }
+
+  botaoCadastrar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Cadastrar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            if (_formkey.currentState.validate()) {
+              _cadastrar();
+            }
+          },
+        ));
+  }
+
+  botaoLimpar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Limpar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            {
+              _reset();
+            }
+          },
+        ));
+  }
+
+
+  void _cadastrar() {
+    setState(() {
+
+
+
+      o_responsavel.codigoPessoa=int.parse(txtCodigo.text);
+      o_responsavel.nome=(txtNome.text);
+      o_responsavel.dataNascimento=(txtDataNascimento.text);
+      o_responsavel.cep=int.parse(txtCEP.text);
+      o_responsavel.numeroCasa=int.parse(txtNumCasa.text);
+      o_responsavel.complemento=(txtComplemento.text);
+      o_responsavel.telContato=int.parse(txtTelContato.text);
+      //fim da heranca
+      o_responsavel.tutorado=(txtTutorado.text);
+      o_responsavel.email=(txtEmail.text);
+      _cadastroDialog();
+
+    });
+  }
+
+  void _cadastroDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // retorna um objeto do tipo Dialog
+        return AlertDialog(
+          //title: new Text("Alert Dialog titulo"),
+          content: new Text("Cadastro efetuado com sucesso!"),
+          actions: <Widget>[
+            // define os botıes na base do dialogo
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  void _voltar()
+  {
+    Navigator.pop(context);
+  }
+
+  void _home()
+  {
+    Navigator.pop(context);
+  }
+
+  void _reset() {
+    setState(() {
+      txtCodigo.text="";
+      txtNome.text="";
+      txtDataNascimento.text="";
+      txtCEP.text="";
+      txtNumCasa.text="";
+      txtComplemento.text="";
+      txtTelContato.text="";
+      //fim da heranca
+      txtTutorado.text="";
+      txtEmail.text="";
+    });
+  }
+}
+//
+// OITAVA PÁGINA - LISTVIEW DE RESPONSÁVEIS
+//
+
+class ResponsaveisCadastradosPagina extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+            title: Text("Responsáveis Cadastrados"),
+            actions: <Widget>[
+              new IconButton(icon: new Icon(Icons.arrow_back),
+                onPressed: () {
+
+                  /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                  Navigator.pushNamed(context, '/pagina3');
+
+
+
+                },),
+              new IconButton(icon: new Icon(Icons.home),onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+            ]
+        ),
+        body: ResponsaveisCadastrados(),
+      ),
+    );
+  }
+}
+
+class ResponsaveisCadastrados extends StatefulWidget {
+  @override
+  _ResponsaveisCadastradosState createState() => _ResponsaveisCadastradosState();
+}
+
+class _ResponsaveisCadastradosState extends State<ResponsaveisCadastrados> {
+
+  //Lista Din‚mica de Itens contendo: Ìcone, tÌtulo e subtÌtulo
+  List<ItemResponsaveis> lista = [];
+
+  //AparÍncia dos itens do ListView
+  Widget _itemLista(context, index){
+
+    return Container(
+      width: MediaQuery.of(context).size.width*0.40,
+      //height: MediaQuery.of(context).size.height*0.40,
+      padding: EdgeInsets.all(20),
+      child: Card(
+        color: Colors.white70,
+        child: Column(
+          children: <Widget>[
+            //SizedBox(height: 15,),
+            ExpansionTile(
+              leading: Icon(lista[index].icone, size: 50,),
+              title: Text(lista[index].nome, style: TextStyle(fontSize: 18,),),
+              subtitle: Text("Código " +lista[index].codigoPessoa.toString(), style: TextStyle(fontSize: 16,),),
+              trailing: Icon(Icons.add),
+              children: <Widget>[
+                Image.network("https://picsum.photos/seed/${index+1}/100/100"),
+                Text("Data de nascimento: " + lista[index].dataNascimento.toString(),style: TextStyle(fontSize: 16),),
+                Text("CEP: " + lista[index].cep.toString(),style: TextStyle(fontSize: 16),),
+                Text("Num: " + lista[index].numeroCasa.toString(),style: TextStyle(fontSize: 16),),
+                Text("Complemento: " + lista[index].complemento.toString(),style: TextStyle(fontSize: 16),),
+                Text("Tel Contato: " + lista[index].telContato.toString(),style: TextStyle(fontSize: 16),),
+                Text("Email: " + lista[index].email.toString(),style: TextStyle(fontSize: 16),),
+                Text("Tutorado: " + lista[index].tutorado.toString(),style: TextStyle(fontSize: 16),),
+              ],
+            ),
+
+
+          ],),
+      ),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    //gerar dados para Lista Din‚mica
+    lista.add(ItemResponsaveis(
+        Icons.person,
+        "Amanda Jaria",
+        10,
+        Image.network(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU",
+            width: 80, height: 80),
+        "24/06/92",
+        14020380,
+        1821,
+        "ap 44",
+        981280829,
+        "Lummy Monteiro",
+        "amanda@gmail.com"));
+    lista.add(ItemResponsaveis(
+        Icons.person,
+        "Lummy Monteiro",
+        11,
+        Image.network(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU",
+            width: 80, height: 80),
+        "24/06/92",
+        14020380,
+        1821,
+        "ap 44",
+        981280829,
+        "Amanda Jaria",
+        "lummy@gmail.com"));
+
+    return Container(
+      color: Colors.grey[100],
+      height: MediaQuery.of(context).size.height*1.0,
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: lista.length,      // total de itens da lista
+        itemBuilder: _itemLista,      // especificar a aparÍncia dos itens da lista
+      ),
+    );
+  }
+}
+
+
+//
+// NONA PÁGINA - CADASTRO DE FISIOTERAPEUTAS
+//
+class CadastroFisioterapeuta extends StatefulWidget {
+  @override
+  _CadastroFisioterapeutaState createState() => _CadastroFisioterapeutaState();
+}
+
+
+class _CadastroFisioterapeutaState extends State<CadastroFisioterapeuta> {
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  TextEditingController txtCodigo = TextEditingController();
+  TextEditingController txtNome = TextEditingController();
+  TextEditingController txtDataNascimento = TextEditingController();
+  TextEditingController txtCEP = TextEditingController();
+  TextEditingController txtNumCasa = TextEditingController();
+  TextEditingController txtComplemento = TextEditingController();
+  TextEditingController txtTelContato = TextEditingController();
+  //fim heranca
+  TextEditingController txtCrefito = TextEditingController();
+  TextEditingController txtEmail = TextEditingController();
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Cadastro de Fisioterapeuta"),
+          actions: <Widget>[
+            new IconButton(icon: new Icon(Icons.backspace), onPressed: _reset),
+            new IconButton(icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+            new IconButton(icon: new Icon(Icons.home),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+              },),
+
+          ] ,
+          backgroundColor: Colors.blue[400]),
+
+
+
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: _formkey,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU", width:80, height:80),
+                campoTexto("Código do fisioterapeuta:",txtCodigo),
+                campoTexto("Nome do fisioterapeuta:",txtNome),
+                campoTexto("Data de Nascimento:",txtDataNascimento),
+                campoTexto("CEP:",txtCEP),
+                campoTexto("Número da residência:",txtNumCasa),
+                campoTexto("Complemento:",txtComplemento),
+                campoTexto("Telefone de Contato:",txtTelContato),
+                //fim da heranca
+                campoTexto("CREFITO:",txtCrefito),
+                campoTexto("email:",txtEmail),
+
+                botaoCadastrar(context),
+                botaoLimpar(context),
+
+                Padding(padding: const EdgeInsets.only(top: 20),),
+                RaisedButton(
+                  child: Text("Visualizar Fisioterapeutas Cadastrados", style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                  ),
+                  color: Colors.grey[500],
+                  onPressed: () {
+                    /*
+                     Navigator.push(context,
+                     MaterialPageRoute(
+                     builder: (context) => FisioterapeutasCadastradosPagina())
+                     );
+                     */
+                    Navigator.pushNamed(context, '/pagina10');
+
+                  },
+                ),
+
+              ]),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+  }
+
+  campoTexto(rotulo, controle) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        keyboardType: TextInputType.text,
+        style: TextStyle(color: Colors.black54, fontSize: 20),
+        decoration: InputDecoration(
+          labelText: rotulo,
+          labelStyle: TextStyle(
+            color: Colors.blue[700],
+            fontSize: 15,
+          ),
+        ),
+        controller: controle,
+        validator: (value) {
+          return (value.isEmpty) ? "Informe o valor" : null;
+        },
+      ),
+    );
+  }
+
+  botaoCadastrar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Cadastrar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            if (_formkey.currentState.validate()) {
+              _cadastrar();
+            }
+          },
+        ));
+  }
+
+  botaoLimpar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Limpar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            {
+              _reset();
+            }
+          },
+        ));
+  }
+
+
+  void _cadastrar() {
+    setState(() {
+
+
+
+      o_fisioterapeuta.codigoPessoa=int.parse(txtCodigo.text);
+      o_fisioterapeuta.nome=(txtNome.text);
+      o_fisioterapeuta.dataNascimento=(txtDataNascimento.text);
+      o_fisioterapeuta.cep=int.parse(txtCEP.text);
+      o_fisioterapeuta.numeroCasa=int.parse(txtNumCasa.text);
+      o_fisioterapeuta.complemento=(txtComplemento.text);
+      o_fisioterapeuta.telContato=int.parse(txtTelContato.text);
+      //fim da heranca
+      o_fisioterapeuta.crefito=(txtCrefito.text);
+      o_fisioterapeuta.email=(txtEmail.text);
+      _cadastroDialog();
+
+    });
+  }
+
+  void _cadastroDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // retorna um objeto do tipo Dialog
+        return AlertDialog(
+          //title: new Text("Alert Dialog titulo"),
+          content: new Text("Cadastro efetuado com sucesso!"),
+          actions: <Widget>[
+            // define os botıes na base do dialogo
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  void _voltar()
+  {
+    Navigator.pop(context);
+  }
+
+  void _home()
+  {
+    Navigator.pop(context);
+  }
+
+  void _reset() {
+    setState(() {
+      txtCodigo.text="";
+      txtNome.text="";
+      txtDataNascimento.text="";
+      txtCEP.text="";
+      txtNumCasa.text="";
+      txtComplemento.text="";
+      txtTelContato.text="";
+      //fim da heranca
+      txtCrefito.text="";
+      txtEmail.text="";
+    });
+  }
+}
+//
+// DECIMA PÁGINA - LISTVIEW DE FISIOTERAPEUTAS
+//
+
+class FisioterapeutasCadastradosPagina extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+            title: Text("Fisioterapeutas Cadastradas"),
+            actions: <Widget>[
+              new IconButton(icon: new Icon(Icons.arrow_back),
+                onPressed: () {
+
+                  /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                  Navigator.pushNamed(context, '/pagina3');
+
+
+
+                },),
+              new IconButton(icon: new Icon(Icons.home),onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+            ]
+        ),
+        body: FisioterapeutasCadastrados(),
+      ),
+    );
+  }
+}
+
+class FisioterapeutasCadastrados extends StatefulWidget {
+  @override
+  _FisioterapeutasCadastradosState createState() => _FisioterapeutasCadastradosState();
+}
+
+class _FisioterapeutasCadastradosState extends State<FisioterapeutasCadastrados> {
+
+  //Lista Din‚mica de Itens contendo: Ìcone, tÌtulo e subtÌtulo
+  List<ItemFisioterapeutas> lista = [];
+
+  //AparÍncia dos itens do ListView
+  Widget _itemLista(context, index){
+
+    return Container(
+      width: MediaQuery.of(context).size.width*0.40,
+      //height: MediaQuery.of(context).size.height*0.40,
+      padding: EdgeInsets.all(20),
+      child: Card(
+        color: Colors.white70,
+        child: Column(
+          children: <Widget>[
+            //SizedBox(height: 15,),
+            ExpansionTile(
+              leading: Icon(lista[index].icone, size: 50,),
+              title: Text(lista[index].nome, style: TextStyle(fontSize: 18,),),
+              subtitle: Text("Código " +lista[index].codigoPessoa.toString(), style: TextStyle(fontSize: 16,),),
+              trailing: Icon(Icons.add),
+              children: <Widget>[
+                Image.network("https://picsum.photos/seed/${index+1}/100/100"),
+                Text("Data de nascimento: " + lista[index].dataNascimento.toString(),style: TextStyle(fontSize: 16),),
+                Text("CEP: " + lista[index].cep.toString(),style: TextStyle(fontSize: 16),),
+                Text("Num: " + lista[index].numeroCasa.toString(),style: TextStyle(fontSize: 16),),
+                Text("Complemento: " + lista[index].complemento.toString(),style: TextStyle(fontSize: 16),),
+                Text("Tel Contato: " + lista[index].telContato.toString(),style: TextStyle(fontSize: 16),),
+                Text("Email: " + lista[index].email.toString(),style: TextStyle(fontSize: 16),),
+                Text("CREFITO: " + lista[index].crefito.toString(),style: TextStyle(fontSize: 16),),
+              ],
+            ),
+
+          ],),
+      ),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    //gerar dados para Lista Din‚mica
+    lista.add(ItemFisioterapeutas(
+        Icons.person,
+        "Amanda Jaria",
+        10,
+        Image.network(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU",
+            width: 80, height: 80),
+        "24/06/92",
+        14020380,
+        1821,
+        "ap 44",
+        981280829,
+        "F323FS",
+        "amanda@gmail.com"));
+    lista.add(ItemFisioterapeutas(
+        Icons.person,
+        "Lummy Monteiro",
+        11,
+        Image.network(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU",
+            width: 80, height: 80),
+        "24/06/92",
+        14020380,
+        1821,
+        "ap 44",
+        981280829,
+        "K76T4S",
+        "lummy@gmail.com"));
+
+    return Container(
+      color: Colors.grey[100],
+      height: MediaQuery.of(context).size.height*1.0,
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: lista.length,      // total de itens da lista
+        itemBuilder: _itemLista,      // especificar a aparÍncia dos itens da lista
+      ),
+    );
+  }
+}
+
+
+//
+// DECIMA PRIMEIRA PÁGINA - CADASTRO DE ATENDIMENTO
+//
+
+class CadastroAtendimento extends StatefulWidget {
+  @override
+  _CadastroAtendimentoState createState() => _CadastroAtendimentoState();
+}
+
+
+class _CadastroAtendimentoState extends State<CadastroAtendimento> {
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  TextEditingController txtCodigoAtendimento = TextEditingController();
+  TextEditingController txtDataAtendimento = TextEditingController();
+  TextEditingController txtHoraInicio = TextEditingController();
+  TextEditingController txtHoraFim = TextEditingController();
+  TextEditingController txtProcedimentosRealizados = TextEditingController();
+  TextEditingController txtCodigoPaciente = TextEditingController();
+  TextEditingController txtCodigoFisioterapeuta = TextEditingController();
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Cadastro de Atendimento"),
+          actions: <Widget>[
+            new IconButton(icon: new Icon(Icons.backspace), onPressed: _reset),
+            new IconButton(icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuCadastroPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina4');
+
+              },),
+            new IconButton(icon: new Icon(Icons.home),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+              },),
+
+          ] ,
+          backgroundColor: Colors.blue[400]),
+
+
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: _formkey,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU", width:80, height:80),
+                campoTexto("Código do Atendimento:",txtCodigoAtendimento),
+                campoTexto("Data do Antendimento:",txtDataAtendimento),
+                campoTexto("Hora Início:",txtHoraInicio),
+                campoTexto("Hora Fim:",txtHoraFim),
+                campoTexto("Procedimentos Realizados:",txtProcedimentosRealizados),
+                campoTexto("Código Paciente:",txtCodigoPaciente),
+                campoTexto("Código Fisioterapeuta:",txtCodigoFisioterapeuta),
+
+                botaoCadastrar(context),
+                botaoLimpar(context),
+
+                Padding(padding: const EdgeInsets.only(top: 20),),
+                RaisedButton(
+                  child: Text("Visualizar Fisioterapeutas Cadastrados", style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                  ),
+                  color: Colors.grey[500],
+                  onPressed: () {
+                    /*
+                     Navigator.push(context,
+                     MaterialPageRoute(
+                     builder: (context) => CadastroAtendimentoPagina())
+                     );
+                     */
+                    Navigator.pushNamed(context, '/pagina12');
+
+                  },
+                ),
+
+              ]),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+  }
+
+  campoTexto(rotulo, controle) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        keyboardType: TextInputType.text,
+        style: TextStyle(color: Colors.black54, fontSize: 20),
+        decoration: InputDecoration(
+          labelText: rotulo,
+          labelStyle: TextStyle(
+            color: Colors.blue[700],
+            fontSize: 15,
+          ),
+        ),
+        controller: controle,
+        validator: (value) {
+          return (value.isEmpty) ? "Informe o valor" : null;
+        },
+      ),
+    );
+  }
+
+  botaoCadastrar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Cadastrar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            if (_formkey.currentState.validate()) {
+              _cadastrar();
+            }
+          },
+        ));
+  }
+
+  botaoLimpar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Limpar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            {
+              _reset();
+            }
+          },
+        ));
+  }
+
+
+  void _cadastrar() {
+    setState(() {
+
+      o_atendimento.codigoAtendimento=int.parse(txtCodigoAtendimento.text);
+      o_atendimento.dataAtendimento=(txtDataAtendimento.text);
+      o_atendimento.horaInicio=(txtHoraInicio.text);
+      o_atendimento.horaFim=(txtHoraFim.text);
+      o_atendimento.procedimentosRealizados=(txtProcedimentosRealizados.text);
+      o_atendimento.codigoPaciente=int.parse(txtCodigoPaciente.text);
+      o_atendimento.codigoFissioterapeuta=int.parse(txtCodigoFisioterapeuta.text);
+      _cadastroDialog();
+
+    });
+  }
+
+  void _cadastroDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // retorna um objeto do tipo Dialog
+        return AlertDialog(
+          //title: new Text("Alert Dialog titulo"),
+          content: new Text("Cadastro efetuado com sucesso!"),
+          actions: <Widget>[
+            // define os botıes na base do dialogo
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  void _voltar()
+  {
+    Navigator.pop(context);
+  }
+
+  void _home()
+  {
+    Navigator.pop(context);
+  }
+
+  void _reset() {
+    setState(() {
+      txtCodigoAtendimento.text="";
+      txtDataAtendimento.text="";
+      txtHoraInicio.text="";
+      txtHoraFim.text="";
+      txtProcedimentosRealizados.text="";
+      txtCodigoPaciente.text="";
+      txtCodigoFisioterapeuta.text="";
+    });
+  }
+}
+
+
+//
+// DECIMA SEGUNDA PÁGINA - LISTA DE ATENDIMENTOS
+//
+
+class AtendimentosCadastradosPagina extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+            title: Text("Atendimentos Cadastrados"),
+            actions: <Widget>[
+              new IconButton(icon: new Icon(Icons.arrow_back),
+                onPressed: () {
+
+                  /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                  Navigator.pushNamed(context, '/pagina3');
+
+
+
+                },),
+              new IconButton(icon: new Icon(Icons.home),onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+            ]
+        ),
+        body: AtendimentosCadastrados(),
+      ),
+    );
+  }
+}
+class AtendimentosCadastrados extends StatefulWidget {
+  @override
+  _AtendimentosCadastradosState createState() => _AtendimentosCadastradosState();
+}
+
+class _AtendimentosCadastradosState extends State<AtendimentosCadastrados> {
+
+  //Lista Din‚mica de Itens contendo: Ìcone, tÌtulo e subtÌtulo
+  List<ItemAtendimento> lista = [];
+
+  //AparÍncia dos itens do ListView
+  Widget _itemLista(context, index){
+
+    return Container(
+      width: MediaQuery.of(context).size.width*0.40,
+      //height: MediaQuery.of(context).size.height*0.40,
+      padding: EdgeInsets.all(20),
+      child: Card(
+        color: Colors.white70,
+        child: Column(
+          children: <Widget>[
+            //SizedBox(height: 15,),
+            ExpansionTile(
+              leading: Icon(lista[index].icone, size: 50,),
+              //title: Text(lista[index].nome, style: TextStyle(fontSize: 18,),),
+              title: Text("Código " +lista[index].codigoAtendimento.toString(), style: TextStyle(fontSize: 16,),),
+              trailing: Icon(Icons.add),
+              children: <Widget>[
+                //Image.network("https://picsum.photos/seed/${index+1}/100/100"),
+                Text("Data do Atendimento: " + lista[index].dataAtendimento.toString(),style: TextStyle(fontSize: 16),),
+                Text("Hora Início: " + lista[index].horaInicio.toString(),style: TextStyle(fontSize: 16),),
+                Text("Hora Fim: " + lista[index].horaFim.toString(),style: TextStyle(fontSize: 16),),
+                Text("Procedimentos Realizados: " + lista[index].procedimentosRealizados.toString(),style: TextStyle(fontSize: 16),),
+                Text("Código Paciente: " + lista[index].codigoPaciente.toString(),style: TextStyle(fontSize: 16),),
+                Text("Código Fisioterapeuta: " + lista[index].codigoFissioterapeuta.toString(),style: TextStyle(fontSize: 16),),
+              ],
+            ),
+
+
+          ],),
+      ),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    //gerar dados para Lista Din‚mica
+    lista.add(ItemAtendimento(
+        Icons.assignment,
+        Image.network(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU",
+            width: 80, height: 80),
+        10,
+        "24/04/20",
+        "14h00",
+        "15h00",
+        "Equilíbrio no Balancim",
+        10,
+        15));
+
+    lista.add(ItemAtendimento(
+        Icons.assignment,
+        Image.network(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU",
+            width: 80, height: 80),
+        14,
+        "28/04/20",
+        "14h00",
+        "15h00",
+        "Equilíbrio no Balancim",
+        10,
+        15));
+
+
+    return Container(
+      color: Colors.grey[100],
+      height: MediaQuery.of(context).size.height*1.0,
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: lista.length,      // total de itens da lista
+        itemBuilder: _itemLista,      // especificar a aparÍncia dos itens da lista
+      ),
+    );
+  }
+}
+
+
+//
+// DECIMA TERCEIRA PÁGINA - CADASTRO DE PROCEDIMENTOS
+//
+class CadastroProcedimento extends StatefulWidget {
+  @override
+  _CadastroProcedimentoState createState() => _CadastroProcedimentoState();
+}
+
+
+class _CadastroProcedimentoState extends State<CadastroProcedimento> {
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  TextEditingController txtCodigoProcedimento = TextEditingController();
+  TextEditingController txtDescricaoProcedimento = TextEditingController();
+  TextEditingController txtNumSeries = TextEditingController();
+  TextEditingController txtNumRepeticoes = TextEditingController();
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Cadastro de Procedimento"),
+          actions: <Widget>[
+            new IconButton(icon: new Icon(Icons.backspace), onPressed: _reset),
+            new IconButton(icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuCadastroPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina4');
+
+              },),
+            new IconButton(icon: new Icon(Icons.home),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+
+          ] ,
+          backgroundColor: Colors.blue[400]),
+
+
+
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: _formkey,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU", width:80, height:80),
+                campoTexto("Código do Procedimento:",txtCodigoProcedimento),
+                campoTexto("Descrição do Procedimento:",txtDescricaoProcedimento),
+                campoTexto("Número de Séries:",txtNumSeries),
+                campoTexto("Número de Repetições:",txtNumRepeticoes),
+
+
+                botaoCadastrar(context),
+                botaoLimpar(context),
+
+                Padding(padding: const EdgeInsets.only(top: 20),),
+                RaisedButton(
+                  child: Text("Visualizar Pacientes Cadastrados", style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                  ),
+                  color: Colors.grey[500],
+                  onPressed: () {
+                    /*
+                     Navigator.push(context,
+                     MaterialPageRoute(
+                     builder: (context) => ProcedimentosCadastradosPagina())
+                     );
+                     */
+                    Navigator.pushNamed(context, '/pagina14');
+
+                  },
+                ),
+
+              ]),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+  }
+
+  campoTexto(rotulo, controle) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        keyboardType: TextInputType.text,
+        style: TextStyle(color: Colors.black54, fontSize: 20),
+        decoration: InputDecoration(
+          labelText: rotulo,
+          labelStyle: TextStyle(
+            color: Colors.blue[700],
+            fontSize: 15,
+          ),
+        ),
+        controller: controle,
+        validator: (value) {
+          return (value.isEmpty) ? "Informe o valor" : null;
+        },
+      ),
+    );
+  }
+
+  botaoCadastrar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Cadastrar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            if (_formkey.currentState.validate()) {
+              _cadastrar();
+            }
+          },
+        ));
+  }
+
+  botaoLimpar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Limpar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            {
+              _reset();
+            }
+          },
+        ));
+  }
+
+
+  void _cadastrar() {
+    setState(() {
+
+      o_procedimento.codigoProcedimento=int.parse(txtCodigoProcedimento.text);
+      o_procedimento.descricaoProcedimento=(txtDescricaoProcedimento.text);
+      o_procedimento.numSeries=int.parse(txtNumSeries.text);
+      o_procedimento.numRepeticoes=int.parse(txtNumRepeticoes.text);
+      _cadastroDialog();
+
+    });
+  }
+
+  void _cadastroDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // retorna um objeto do tipo Dialog
+        return AlertDialog(
+          //title: new Text("Alert Dialog titulo"),
+          content: new Text("Cadastro de Procedimento efetuado com sucesso!"),
+          actions: <Widget>[
+            // define os botıes na base do dialogo
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  void _voltar()
+  {
+    Navigator.pop(context);
+  }
+
+  void _home()
+  {
+    Navigator.pop(context);
+  }
+
+  void _reset() {
+    setState(() {
+      txtCodigoProcedimento.text="";
+      txtDescricaoProcedimento.text="";
+      txtNumRepeticoes.text="";
+      txtNumSeries.text="";
+
+    });
+  }
+}
+
+
+//
+// DECIMA QUARTA PÁGINA - LISTVIEW DE PROCEDIMENTOS
+//
+
+class ProcedimentosCadastradosPagina extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+            title: Text("Procedimentos Cadastrados"),
+            actions: <Widget>[
+              new IconButton(icon: new Icon(Icons.arrow_back),
+                onPressed: () {
+
+                  /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                  Navigator.pushNamed(context, '/pagina3');
+
+
+
+                },),
+              new IconButton(icon: new Icon(Icons.home),onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+            ]
+        ),
+        body: ProcedimentosCadastrados(),
+      ),
+    );
+  }
+}
+class ProcedimentosCadastrados extends StatefulWidget {
+  @override
+  _ProcedimentosCadastradosState createState() => _ProcedimentosCadastradosState();
+}
+
+class _ProcedimentosCadastradosState extends State<ProcedimentosCadastrados> {
+
+  //Lista Din‚mica de Itens contendo: Ìcone, tÌtulo e subtÌtulo
+  List<ItemProcedimento> lista = [];
+
+  //AparÍncia dos itens do ListView
+  Widget _itemLista(context, index){
+
+    return Container(
+      width: MediaQuery.of(context).size.width*0.40,
+      //height: MediaQuery.of(context).size.height*0.40,
+      padding: EdgeInsets.all(20),
+      child: Card(
+        color: Colors.white70,
+        child: Column(
+          children: <Widget>[
+            //SizedBox(height: 15,),
+            ExpansionTile(
+              leading: Icon(lista[index].icone, size: 50,),
+              title: Text(lista[index].descricaoProcedimento, style: TextStyle(fontSize: 18,),),
+              subtitle: Text("Código " +lista[index].codigoProcedimento.toString(), style: TextStyle(fontSize: 16,),),
+              trailing: Icon(Icons.add),
+              children: <Widget>[
+                //Image.network("https://picsum.photos/seed/${index+1}/100/100"),
+                Text("Número de Séries: " + lista[index].numSeries.toString(),style: TextStyle(fontSize: 16),),
+                Text("Número de Repetições : " + lista[index].numRepeticoes.toString(),style: TextStyle(fontSize: 16),),
+
+              ],
+            ),
+
+          ],),
+      ),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    //gerar dados para Lista Din‚mica
+    lista.add(ItemProcedimento(
+      Icons.category,
+      Image.network(
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU",
+          width: 80, height: 80),
+      10,
+      "Equilíbrio no Balancim",
+      5,
+      10,));
+
+    lista.add(ItemProcedimento(
+      Icons.category,
+      Image.network(
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU",
+          width: 80, height: 80),
+      11,
+      "Flexão de Perna",
+      4,
+      8,));
+
+
+
+
+    return Container(
+      color: Colors.grey[100],
+      height: MediaQuery.of(context).size.height*1.0,
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: lista.length,      // total de itens da lista
+        itemBuilder: _itemLista,      // especificar a aparÍncia dos itens da lista
+      ),
+    );
+  }
+}
+//
+// DECIMA QUINTA PÁGINA - REALIZAR UM AGENDAMENTO
+//
+
+class AgendamentoPagina extends StatefulWidget {
+  @override
+  _AgendamentoPaginaState createState() => _AgendamentoPaginaState();
+}
+
+
+class _AgendamentoPaginaState extends State<AgendamentoPagina> {
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+  TextEditingController txtNomePaciente = TextEditingController();
+  TextEditingController txtNomeResponsavel = TextEditingController();
+  TextEditingController txtDataAtendimento = TextEditingController();
+  TextEditingController txtHoraAtendimento = TextEditingController();
+  TextEditingController txtLocalAtendimento = TextEditingController();
+  TextEditingController txtFisioResponsavel = TextEditingController();
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Agendar uma Consulta"),
+          actions: <Widget>[
+            new IconButton(icon: new Icon(Icons.backspace), onPressed: _reset),
+            new IconButton(icon: new Icon(Icons.arrow_back),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuCadastroPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina4');
+
+              },),
+            new IconButton(icon: new Icon(Icons.home),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+
+          ] ,
+          backgroundColor: Colors.blue[400]),
+
+
+
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Form(
+          key: _formkey,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3ThzzjvfKQW7zOErUfmC_ouJ6pDWayG8NNvI6wMg9jmS5mUYc&usqp=CAU", width:80, height:80),
+                campoTexto("Nome do Paciente:",txtNomePaciente),
+                campoTexto("Nome do Responsável:",txtNomeResponsavel),
+                campoTexto("Data da Consulta:",txtDataAtendimento),
+                campoTexto("Horário da consulta:",txtHoraAtendimento),
+                campoTexto("Local da consulta:",txtLocalAtendimento),
+                campoTexto("Fisioterapeura Responsável:",txtFisioResponsavel),
+
+
+                botaoAgendar(context),
+                botaoLimpar(context),
+
+
+
+              ]),
+        ),
+      ),
+      backgroundColor: Colors.white,
+    );
+  }
+
+  campoTexto(rotulo, controle) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        keyboardType: TextInputType.text,
+        style: TextStyle(color: Colors.black54, fontSize: 20),
+        decoration: InputDecoration(
+          labelText: rotulo,
+          labelStyle: TextStyle(
+            color: Colors.blue[700],
+            fontSize: 15,
+          ),
+        ),
+        controller: controle,
+        validator: (value) {
+          return (value.isEmpty) ? "Complete o campo vazio" : null;
+        },
+      ),
+    );
+  }
+
+  //Gerar um resumo do agendamento
+
+  botaoAgendar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Finalizar Agendamento",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            if (_formkey.currentState.validate()) {
+              _agendar();
+            }
+          },
+        ));
+  }
+
+
+  botaoLimpar(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: RaisedButton(
+          child: Text(
+            "Limpar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+          color: Colors.grey[500],
+          onPressed: () {
+            {
+              _reset();
+            }
+          },
+        ));
+  }
+
+
+  void _agendar() {
+    setState(() {
+
+      o_agendamento.nomePaciente=(txtNomePaciente.text);
+      o_agendamento.nomeResponsavel=(txtNomeResponsavel.text);
+      o_agendamento.dataConsulta=(txtDataAtendimento.text);
+      o_agendamento.horaConsulta=(txtHoraAtendimento.text);
+      o_agendamento.localConsulta=(txtLocalAtendimento.text);
+      o_agendamento.fisioResponsavel=(txtFisioResponsavel.text);
+      _cadastroDialog();
+
+    });
+  }
+
+
+  void _cadastroDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // retorna um objeto do tipo Dialog
+        return AlertDialog(
+          //title: new Text("Alert Dialog titulo"),
+          title: new Text("Agendamento efetuado com sucesso!"),
+          content: Text("Paciente: " + txtNomePaciente.text + "\n"+ "Responsável: " + txtNomeResponsavel.text + "\n"+ "Data do agendamento: " +txtDataAtendimento.text + "\n"+ "Horario agendado: " +txtHoraAtendimento.text + "\n"+ "Local de atendimento: " +txtLocalAtendimento.text + "\n"+ "Fisioterapeuta Responsável: " +txtFisioResponsavel.text),
+
+          actions: <Widget>[
+            // define os botıes na base do dialogo
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  void _voltar()
+  {
+    Navigator.pop(context);
+  }
+
+  void _home()
+  {
+    Navigator.pop(context);
+  }
+
+  void _reset() {
+    setState(() {
+      txtNomePaciente.text="";
+      txtNomeResponsavel.text="";
+      txtDataAtendimento.text="";
+      txtHoraAtendimento.text="";
+      txtLocalAtendimento.text="";
+      txtFisioResponsavel.text="";
+
+    });
+  }
+}
+//
+// DECIMA SEXTA PÁGINA - MENU DE LISTAS
+//
+class MenuListasPagina extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Arquivos iFisio"),
+          actions: <Widget>[
+
+            new IconButton(icon: new Icon(Icons.home),
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => MenuPrincipal())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina3');
+
+
+
+              },),
+
+          ] ,
+          backgroundColor: Colors.blue[400]),
+      body: SingleChildScrollView ( child: Center(
+        child: Column(
+
+          //mainAxisAlignment: MainAxisAlignment.center,
+
+          children: <Widget>[
+
+            Padding(padding: EdgeInsets.only(top: 30),),
+
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:85),
+              child: Text("Pacientes Cadastrados", style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => PacientesCadastrados())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina6');
+
+              },
+            ),
+
+            Padding(padding: EdgeInsets.only(top: 20),),
+
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:70),
+              child: Text("Responsáveis Cadastrados", style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => ResponsaveisCadastrados())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina8');
+
+              },
+            ),
+            Padding(padding: EdgeInsets.only(top: 20),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:65),
+              child: Text("Fisioterapeutas Cadastrados", style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => FisioterapeutasCadastradosPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina10');
+
+              },
+            ),
+
+            Padding(padding: EdgeInsets.only(top: 20),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:70),
+              child: Text("Atendimentos Cadastrados", style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => AtendimentoCadastradoPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina12');
+
+              },
+            ),
+
+            Padding(padding: EdgeInsets.only(top: 20),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal:65),
+              child: Text("Procedimentos Cadastrados", style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
+
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => ProcedimentosCadastrados())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina14');
+
+              },
+            ),
+
+            Padding(padding: EdgeInsets.only(top: 30),),
+
+            Image.network("https://www.erasystems.com.br/wp-content/uploads/2017/06/icone_cadastro-300x162.png",fit: BoxFit.fill,width: 250.0, alignment: Alignment.bottomRight),
+
+          ],
+        ),
+      ),
+      ),
+    );
+  }
+}
+
+
+//
+// DECIMA SETIMA PÁGINA - INICIO
+//
+
+class Inicio extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: Text("Bem Vindo"),
+          backgroundColor: Colors.blue),
+      backgroundColor: Color(int.parse('0xff1a1d53')),
+      body: Center ( child: SingleChildScrollView(
+
+
+        child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.center,
+
+          children: <Widget>[
+
+            Image.network('https://i.ibb.co/drXsjWk/Captura-de-Tela-2020-06-05-a-s-12-36-37.png',fit: BoxFit.cover),
+
+            Padding(padding: EdgeInsets.only(top: 10),),
+
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal:50),
+              child: Text("Login", style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+              ),
+              color: Colors.blue[500],
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => Login())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina1');
+
+              },
+            ),
+
+
+            Padding(padding: const EdgeInsets.symmetric(vertical: 10, horizontal:10),),
+            RaisedButton(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal:20),
+              child: Text("Sobre o App", style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+
+              ),
+              color: Colors.blue[500],
+
+              onPressed: () {
+
+                /*
+                Navigator.push(context,
+                    MaterialPageRoute(
+                      builder: (context) => InformacoesPagina())
+                );
+                */
+                Navigator.pushNamed(context, '/pagina2');
+
+
+
+              },
+            ),
+
+
+          ],
+        ),
+      ),
+      ),
+    );
+  }
+}
