@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "943103570895",
+    "firebase_url": "https://ifisio-9e179.firebaseio.com",
+    "project_id": "ifisio-9e179",
+    "storage_bucket": "ifisio-9e179.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943103570895:android:d07ba05be83893ec1d98ba",
+        "android_client_info": {
+          "package_name": "com.example.ifisio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943103570895-p0gdjqp5r7ksancgh10p8pq2qobf8g0j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIfE2tpQ8kWLCzrc0bvYchA1jfFjD2zcI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943103570895-p0gdjqp5r7ksancgh10p8pq2qobf8g0j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
